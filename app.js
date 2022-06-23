@@ -67,6 +67,10 @@ mongoose
         "mongodb+srv://Aman:jO0soXDe9RJHKhYP@cluster0.ymo3jpa.mongodb.net/posts?retryWrites=true&w=majority"
     )
     .then(() => {
-        app.listen(8080);
+        const server = app.listen(8080);
+        const io = require("./socket").init(server);
+        io.on("connection", (socket) => {
+            console.log("Client connected!");
+        });
     })
     .catch((err) => console.log(err));
